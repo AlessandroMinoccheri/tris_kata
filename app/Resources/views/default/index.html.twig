@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <form method="POST"
+                <div class="cell">
+                    <input type="hidden" name="cell_1_1" class="cell-value" value="0" />
+                </div>
+                <div class="cell">
+                    <input type="hidden" name="cell_1_2" class="cell-value" value="0" />
+                </div>
+                <div class="cell">
+                    <input type="hidden" name="cell_1_3" class="cell-value" value="0" />
+                </div>
+                <div class="clear"></div>
+                <div class="cell">
+                    <input type="hidden" name="cell_2_1" class="cell-value" value="0" />
+                </div>
+                <div class="cell">
+                    <input type="hidden" name="cell_2_2" class="cell-value" value="0" />
+                </div>
+                <div class="cell">
+                    <input type="hidden" name="cell_2_3" class="cell-value" value="0" />
+                </div>
+                <div class="clear"></div>
+                <div class="cell">
+                    <input type="hidden" name="cell_3_1" class="cell-value" value="0" />
+                </div>
+                <div class="cell">
+                    <input type="hidden" name="cell_3_2" class="cell-value" value="0" />
+                </div>
+                <div class="cell">
+                    <input type="hidden" name="cell_3_3" class="cell-value" value="0" />
+                </div>
+                <div class="clear"></div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+    $(document).ready(function(){
+        $('.cell').click(function(){
+            var value = $(this).find('.cell-value').val();
+            if (value == '0'){
+                $(this).find('.cell-value').val('1');
+            }
+            else{
+                $(this).find('.cell-value').val('0');
+            }
+
+            $(this).closest('form').submit();
+        });
+    });
+    </script>
+{% endblock %}

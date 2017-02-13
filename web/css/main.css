@@ -1,0 +1,17 @@
+#wrapper {
+    width: 310px;
+    height: auto;
+    margin: 100px auto 0 auto;
+}
+
+.cell {
+    float: left;
+    border: 1px solid #3c3c3c;
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+}
+
+.clear {
+    clear: both;
+}
