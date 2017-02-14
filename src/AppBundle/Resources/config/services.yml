@@ -1,0 +1,4 @@
+services:
+    app.board:
+        class:     AppBundle\Services\Board
+        #arguments: ['@app.clienthttp', '@logger']

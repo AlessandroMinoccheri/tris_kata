@@ -15,3 +15,11 @@
 .clear {
     clear: both;
 }
+
+.color-0 {
+    background: white;
+}
+
+.color-1 {
+    background: green;
+}

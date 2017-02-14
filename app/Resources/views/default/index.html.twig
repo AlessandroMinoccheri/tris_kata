@@ -3,36 +3,14 @@
 {% block body %}
     <div id="wrapper">
         <div id="container">
-            <form method="POST"
-                <div class="cell">
-                    <input type="hidden" name="cell_1_1" class="cell-value" value="0" />
-                </div>
-                <div class="cell">
-                    <input type="hidden" name="cell_1_2" class="cell-value" value="0" />
-                </div>
-                <div class="cell">
-                    <input type="hidden" name="cell_1_3" class="cell-value" value="0" />
-                </div>
-                <div class="clear"></div>
-                <div class="cell">
-                    <input type="hidden" name="cell_2_1" class="cell-value" value="0" />
-                </div>
-                <div class="cell">
-                    <input type="hidden" name="cell_2_2" class="cell-value" value="0" />
-                </div>
-                <div class="cell">
-                    <input type="hidden" name="cell_2_3" class="cell-value" value="0" />
-                </div>
-                <div class="clear"></div>
-                <div class="cell">
-                    <input type="hidden" name="cell_3_1" class="cell-value" value="0" />
-                </div>
-                <div class="cell">
-                    <input type="hidden" name="cell_3_2" class="cell-value" value="0" />
-                </div>
-                <div class="cell">
-                    <input type="hidden" name="cell_3_3" class="cell-value" value="0" />
-                </div>
+            <form method="POST">
+                {% for i in 1..3 %}
+                    {% for j in 1..3 %}
+                        <div class="cell color-{{ board[i][j] }}">
+                            <input type="hidden" name="cell_{{ i }}_{{ j }}" class="cell-value" value="{{ board[i][j] }}"  >
+                        </div>
+                    {% endfor %}
+                {% endfor %}
                 <div class="clear"></div>
             </form>
         </div>
