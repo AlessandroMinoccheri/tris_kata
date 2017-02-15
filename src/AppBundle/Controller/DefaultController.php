@@ -16,12 +16,22 @@ class DefaultController extends Controller
     {
         $board = $this->get('app.board');
         $board->setValue($request);
+        $board->checkEnd();
+        $statusGame = $board->getStatusGame();
+
+        if (($request->isMethod('POST')) && ($statusGame == true)) {
+            $board->moveCpu();
+        }
+
+        //$board->checkWinner();
         $result = $board->getArrayResult();
+
 
         var_dump($result);
 
         return $this->render('default/index.html.twig', [
             'board' => $result,
+            'statusGame' => $statusGame,
         ]);
     }
 }
