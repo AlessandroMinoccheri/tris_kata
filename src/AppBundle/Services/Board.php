@@ -9,11 +9,6 @@ class Board
     protected $tiles;
     protected $winner;
 
-    public function __construct()
-    {
-
-    }
-
     public function setValue(Request $request)
     {
         for($i = 1; $i <= 3; $i++){
@@ -45,7 +40,7 @@ class Board
         }
     }
 
-    public function getStatusGameEnd()
+    public function getStatusGame()
     {
         for($i = 1; $i <= 3; $i++){
             for($j = 1; $j <= 3; $j++){
