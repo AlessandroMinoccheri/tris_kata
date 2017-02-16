@@ -16,8 +16,7 @@ class DefaultController extends Controller
     {
         $board = $this->get('app.board');
         $board->setValue($request);
-        $board->checkEnd();
-        $statusGame = $board->getStatusGame();
+        $statusGame = $board->getStausGameEnd();
 
         if (($request->isMethod('POST')) && ($statusGame == true)) {
             $board->moveCpu();
@@ -25,7 +24,6 @@ class DefaultController extends Controller
 
         //$board->checkWinner();
         $result = $board->getArrayResult();
-
 
         var_dump($result);
 

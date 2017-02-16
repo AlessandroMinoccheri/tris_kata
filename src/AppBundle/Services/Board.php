@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 class Board
 {
     protected $tiles;
-    protected $statusGame;
+    protected $winner;
 
     public function __construct()
     {
@@ -33,11 +33,6 @@ class Board
         return $this->tiles;
     }
 
-    public function getStatusGame() : bool
-    {
-        return $this->statusGame;
-    }
-
     public function moveCpu()
     {
         $iRand = rand(1, 3);
@@ -50,17 +45,16 @@ class Board
         }
     }
 
-    public function checkEnd()
+    public function getStausGameEnd()
     {
         for($i = 1; $i <= 3; $i++){
             for($j = 1; $j <= 3; $j++){
                 if($this->tiles[$i][$j] == '0'){
-                    $this->statusGame = true;
-                    return;
+                    return true;
                 }
             }
         }
 
-        $this->statusGame = false;
+        return false;
     }
 }
