@@ -57,7 +57,27 @@ class Board
                 }
             }
 
-            if ($check == true) {
+            if (($check == true) && ($lastValue != '0')){
+                return true;
+            }
+        }
+
+        //check vertical
+        for($j = 1; $j <= 3; $j++){
+            $check = true;
+            $lastValue = '';
+            for($i = 1; $i <= 3; $i++){
+                if ($lastValue == '') {
+                    $lastValue = $this->tiles[$i][$j];
+                }
+                else{
+                    if($this->tiles[$i][$j] != $lastValue) {
+                        $check =false;
+                    }
+                }
+            }
+
+            if (($check == true) && ($lastValue != '0')){
                 return true;
             }
         }
