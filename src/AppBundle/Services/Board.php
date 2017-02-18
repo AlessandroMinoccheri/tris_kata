@@ -40,9 +40,8 @@ class Board
         }
     }
 
-    public function getIfIsFinishGame() : bool
+    private function checkHorizontal() :bool
     {
-        //check horizontal
         for($i = 1; $i <= 3; $i++){
             $check = true;
             $lastValue = '';
@@ -62,7 +61,11 @@ class Board
             }
         }
 
-        //check vertical
+        return false;
+    }
+
+    private function checkVertical() :bool
+    {
         for($j = 1; $j <= 3; $j++){
             $check = true;
             $lastValue = '';
@@ -80,6 +83,19 @@ class Board
             if (($check == true) && ($lastValue != '0')){
                 return true;
             }
+        }
+
+        return false;
+    }
+
+    public function getIfIsFinishGame() : bool
+    {
+        if ($this->checkHorizontal()) {
+            return true;
+        }
+
+        if ($this->checkVertical()) {
+            return true;
         }
 
         return false;
