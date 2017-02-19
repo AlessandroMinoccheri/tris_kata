@@ -13,13 +13,18 @@ class Board
     {
         for($i = 1; $i <= 3; $i++){
             for($j = 1; $j <= 3; $j++){
-                if(null != $request->request->get('cell_' . $i . '_' . $j)){
-                    $this->tiles[$i][$j] = $request->request->get('cell_' . $i . '_' . $j);
-                }
-                else{
-                    $this->tiles[$i][$j] = '0';
-                }
+                $this->setCell($i, $j, $request->request->get('cell_' . $i . '_' . $j));
             }
+        }
+    }
+
+    public function setCell(int $row, int $column, $value)
+    {
+        if(null != $value){
+            $this->tiles[$row][$column] = $value;
+        }
+        else{
+            $this->tiles[$row][$column] = '0';
         }
     }
 

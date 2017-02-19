@@ -37,9 +37,7 @@ class BoardServiceTest extends WebTestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        //set first 3 cells
-        //6 because every cells call two times get request
-        for($i = 0; $i < 6; $i++){
+        for($i = 0; $i < 3; $i++){
             $this->requestMock->request->expects($this->at($i))
                 ->method('get')
                 ->will($this->returnValue('1'));
@@ -63,9 +61,7 @@ class BoardServiceTest extends WebTestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        //set first 3 cells
-        //6 because every cells call two times get request
-        for($i = 0; $i < 6; $i++){
+        for($i = 0; $i < 3; $i++){
             $this->requestMock->request->expects($this->at($i))
                 ->method('get')
                 ->will($this->returnValue('1'));
@@ -75,23 +71,11 @@ class BoardServiceTest extends WebTestCase
             ->method('get')
             ->will($this->returnValue('1'));
 
-        $this->requestMock->request->expects($this->at(1))
+        $this->requestMock->request->expects($this->at(3))
             ->method('get')
             ->will($this->returnValue('1'));
 
         $this->requestMock->request->expects($this->at(6))
-            ->method('get')
-            ->will($this->returnValue('1'));
-
-        $this->requestMock->request->expects($this->at(7))
-            ->method('get')
-            ->will($this->returnValue('1'));
-
-        $this->requestMock->request->expects($this->at(12))
-            ->method('get')
-            ->will($this->returnValue('1'));
-
-        $this->requestMock->request->expects($this->at(13))
             ->method('get')
             ->will($this->returnValue('1'));
 
