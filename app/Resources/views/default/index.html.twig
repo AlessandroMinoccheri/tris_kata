@@ -3,7 +3,7 @@
 {% block body %}
     <div id="wrapper">
         <div id="container">
-            {% if statusGame != false %}
+            {% if gameFinished == true %}
                 <p>
                     GAME OVER
                 </p>
@@ -32,7 +32,7 @@
         </div>
     </div>
 
-    {% if statusGame != true %}
+    {% if gameFinished != true %}
         <script>
         $(document).ready(function(){
             $('.cell').click(function(){

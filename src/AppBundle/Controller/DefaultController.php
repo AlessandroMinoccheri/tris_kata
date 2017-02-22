@@ -16,7 +16,7 @@ class DefaultController extends Controller
     {
         $board = $this->get('app.board');
         $board->setValue($request);
-        $statusGame = $board->isGameFinished();
+        $gameFinished = $board->isGameFinished();
 
         if (($request->isMethod('POST')) && ($statusGame != true)) {
             $board->moveCpu();
@@ -29,7 +29,7 @@ class DefaultController extends Controller
 
         return $this->render('default/index.html.twig', [
             'board' => $result,
-            'statusGame' => $statusGame,
+            'gameFinished' => $gameFinished,
             'winner' => $winner,
         ]);
     }

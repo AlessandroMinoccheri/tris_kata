@@ -22,7 +22,7 @@ class BoardServiceTest extends WebTestCase
         $board = new Board();
         $board->setValue($this->requestMock);
 
-        $this->assertFalse($board->getIfIsFinishGame());
+        $this->assertFalse($board->isGameFinished());
     }
 
     public function testGetSatusGameEndHorizontal()
@@ -46,7 +46,7 @@ class BoardServiceTest extends WebTestCase
         $board = new Board();
         $board->setValue($this->requestMock);
 
-        $this->assertTrue($board->getIfIsFinishGame());
+        $this->assertTrue($board->isGameFinished());
     }
 
     public function testGetSatusGameEndVertical()
@@ -60,12 +60,6 @@ class BoardServiceTest extends WebTestCase
             ->getMockBuilder('Symfony\Component\HttpFoundation\ParameterBag')
             ->disableOriginalConstructor()
             ->getMock();
-
-        for($i = 0; $i < 3; $i++){
-            $this->requestMock->request->expects($this->at($i))
-                ->method('get')
-                ->will($this->returnValue('1'));
-        }
 
         $this->requestMock->request->expects($this->at(0))
             ->method('get')
@@ -82,6 +76,6 @@ class BoardServiceTest extends WebTestCase
         $board = new Board();
         $board->setValue($this->requestMock);
 
-        $this->assertTrue($board->getIfIsFinishGame());
+        $this->assertTrue($board->isGameFinished());
     }
 }
