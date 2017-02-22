@@ -9,6 +9,11 @@ class Board
     protected $tiles;
     protected $winner;
 
+    public function __construct()
+    {
+        $this->winner = '';
+    }
+
     public function setValue(Request $request)
     {
         for($i = 1; $i <= 3; $i++){
@@ -56,12 +61,13 @@ class Board
                 }
                 else{
                     if($this->tiles[$i][$j] != $lastValue) {
-                        $check =false;
+                        $check = false;
                     }
                 }
             }
 
             if (($check == true) && ($lastValue != '0')){
+                $this->winner = $lastValue;
                 return true;
             }
         }
@@ -80,12 +86,13 @@ class Board
                 }
                 else{
                     if($this->tiles[$i][$j] != $lastValue) {
-                        $check =false;
+                        $check = false;
                     }
                 }
             }
 
             if (($check == true) && ($lastValue != '0')){
+                $this->winner = $lastValue;
                 return true;
             }
         }
@@ -93,7 +100,7 @@ class Board
         return false;
     }
 
-    public function getIfIsFinishGame() : bool
+    public function isGameFinished() : bool
     {
         if ($this->checkHorizontal()) {
             return true;
@@ -104,5 +111,10 @@ class Board
         }
 
         return false;
+    }
+
+    public function getWinner() : string
+    {
+        return  $this->winner;
     }
 }
