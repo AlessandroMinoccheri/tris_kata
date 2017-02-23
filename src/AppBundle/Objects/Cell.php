@@ -6,15 +6,13 @@ class Cell {
 
     protected $position;
 
-    public function setPosition($position)
+    public function setPosition(int $position)
     {
-        if($position >= 1 && $position <= 9)
-        {
-            $this->position = $position;
+        if($position < 0 || $position > 9){
+            throw new \RuntimeException('Negative Value aren\'t accepted');
         }
 
-        throw new \RuntimeException();
-
+        $this->position = $position;
     }
 
     public function getPosition()

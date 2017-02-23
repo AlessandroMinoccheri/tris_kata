@@ -16,7 +16,9 @@ class CellTest extends TestCase
         $this->assertEquals($randomPosition, $cell->getPosition());
     }
 
-    /** @expectedException \RuntimeException */
+    /** @expectedException \RuntimeException
+    @expectedExceptionMessage Negative Value aren't accepted
+    */
     public function testNotAcceptNegativePosition()
     {
         $cell = new Cell();
