@@ -31,4 +31,27 @@ class CellTest extends TestCase
         $cell = new Cell();
         $cell->setPosition(111);
     }
+
+    public function testAcceptStatus()
+    {
+        $statusRandom = rand(0,2);
+        $cell = new Cell();
+        $cell->setStatus($statusRandom);
+
+        $this->assertEquals($statusRandom, $cell->getStatus());
+    }
+
+    /** @expectedException \RuntimeException */
+    public function testNotAcceptNegativeStatus()
+    {
+        $cell = new Cell();
+        $cell->setStatus(-rand(1, 100));
+    }
+
+    /** @expectedException \RuntimeException */
+    public function testNotAcceptMoreThanTwoStatus()
+    {
+        $cell = new Cell();
+        $cell->setStatus(-rand(1, 100));
+    }
 }
