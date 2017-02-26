@@ -52,6 +52,6 @@ class CellTest extends TestCase
     public function testNotAcceptMoreThanTwoStatus()
     {
         $cell = new Cell();
-        $cell->setStatus(-rand(1, 100));
+        $cell->setStatus(rand(3, 100));
     }
 }
