@@ -9,7 +9,7 @@ class Cell {
 
     public function setPosition(int $position)
     {
-        if($position < 0 || $position > 9){
+        if($position < 0 || $position >= 9){
             throw new \RuntimeException('Negative Value aren\'t accepted');
         }
 

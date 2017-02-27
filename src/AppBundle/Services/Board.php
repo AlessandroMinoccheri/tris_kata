@@ -3,6 +3,7 @@
 namespace AppBundle\Services;
 
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Objects\Cell;
 
 class Board
 {
@@ -16,20 +17,18 @@ class Board
 
     public function setValue(Request $request)
     {
-        for($i = 1; $i <= 3; $i++){
-            for($j = 1; $j <= 3; $j++){
-                $this->setCell($i, $j, $request->request->get('cell_' . $i . '_' . $j));
-            }
+        for ($i = 0; $i < 9; $i++) {
+            $this->setCell($i, $request->request->get('cell_' . $i));
         }
     }
 
-    public function setCell(int $row, int $column, $value)
+    public function setCell(int $position, $value)
     {
         if(null != $value){
-            $this->tiles[$row][$column] = $value;
+            $this->tiles[$position] = $value;
         }
         else{
-            $this->tiles[$row][$column] = '0';
+            $this->tiles[$position] = '0';
         }
     }
 
@@ -40,10 +39,9 @@ class Board
 
     public function moveCpu()
     {
-        $iRand = rand(1, 3);
-        $jRand = rand(1, 3);
-        if ($this->tiles[$iRand][$jRand] == '0') {
-            $this->tiles[$iRand][$jRand] = '2';
+        $posRand = rand(0, 8);
+        if ($this->tiles[$posRand] == '0') {
+            $this->tiles[$posRand] = '2';
         }
         else{
             $this->moveCpu();
@@ -52,24 +50,28 @@ class Board
 
     private function checkHorizontal() :bool
     {
-        for($i = 1; $i <= 3; $i++){
-            $check = true;
-            $lastValue = '';
-            for($j = 1; $j <= 3; $j++){
-                if ($lastValue == '') {
-                    $lastValue = $this->tiles[$i][$j];
-                }
-                else{
-                    if($this->tiles[$i][$j] != $lastValue) {
-                        $check = false;
-                    }
-                }
-            }
+        if (($this->checkEqualsCell(0, 1, 2) == true)){
+            $this->winner = $this->tiles[0];
+            return true;
+        }
 
-            if (($check == true) && ($lastValue != '0')){
-                $this->winner = $lastValue;
-                return true;
-            }
+        if (($this->checkEqualsCell(3, 4, 5) == true)){
+            $this->winner = $this->tiles[3];
+            return true;
+        }
+
+        if (($this->checkEqualsCell(6, 7, 8) == true)){
+            $this->winner = $this->tiles[6];
+            return true;
+        }
+
+        return false;
+    }
+
+    private function checkEqualsCell(int $positionA, int $positionB, int $positionC)
+    {
+        if (($this->tiles[$positionA] == $this->tiles[$positionB]) && ( $this->tiles[$positionA]== $this->tiles[$positionC]) && ($this->tiles[$positionA] != '0')) {
+            return true;
         }
 
         return false;
@@ -77,24 +79,19 @@ class Board
 
     private function checkVertical() :bool
     {
-        for($j = 1; $j <= 3; $j++){
-            $check = true;
-            $lastValue = '';
-            for($i = 1; $i <= 3; $i++){
-                if ($lastValue == '') {
-                    $lastValue = $this->tiles[$i][$j];
-                }
-                else{
-                    if($this->tiles[$i][$j] != $lastValue) {
-                        $check = false;
-                    }
-                }
-            }
+        if (($this->checkEqualsCell(0, 3, 6) == true)){
+            $this->winner = $this->tiles[0];
+            return true;
+        }
 
-            if (($check == true) && ($lastValue != '0')){
-                $this->winner = $lastValue;
-                return true;
-            }
+        if (($this->checkEqualsCell(1, 4, 7) == true)){
+            $this->winner = $this->tiles[1];
+            return true;
+        }
+
+        if (($this->checkEqualsCell(2, 5, 8) == true)){
+            $this->winner = $this->tiles[2];
+            return true;
         }
 
         return false;
