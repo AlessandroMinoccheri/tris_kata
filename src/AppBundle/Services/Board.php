@@ -48,6 +48,19 @@ class Board
         }
     }
 
+    private function checkEqualsCell(int $positionA, int $positionB, int $positionC) :bool
+    {
+        if (
+            $this->tiles[$positionA] == $this->tiles[$positionB] &&
+            $this->tiles[$positionA] == $this->tiles[$positionC] &&
+            $this->tiles[$positionA] != '0'
+        ) {
+            return true;
+        }
+
+        return false;
+    }
+
     private function checkHorizontal() :bool
     {
         if (($this->checkEqualsCell(0, 1, 2) == true)){
@@ -62,15 +75,6 @@ class Board
 
         if (($this->checkEqualsCell(6, 7, 8) == true)){
             $this->winner = $this->tiles[6];
-            return true;
-        }
-
-        return false;
-    }
-
-    private function checkEqualsCell(int $positionA, int $positionB, int $positionC)
-    {
-        if (($this->tiles[$positionA] == $this->tiles[$positionB]) && ( $this->tiles[$positionA]== $this->tiles[$positionC]) && ($this->tiles[$positionA] != '0')) {
             return true;
         }
 
@@ -99,11 +103,7 @@ class Board
 
     public function isGameFinished() : bool
     {
-        if ($this->checkHorizontal()) {
-            return true;
-        }
-
-        if ($this->checkVertical()) {
+        if ($this->checkHorizontal() || $this->checkVertical()) {
             return true;
         }
 
