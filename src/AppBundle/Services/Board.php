@@ -24,10 +24,9 @@ class Board
 
     public function setCell(int $position, $value)
     {
-        if(null != $value){
+        if (null != $value) {
             $this->tiles[$position] = $value;
-        }
-        else{
+        } else {
             $this->tiles[$position] = '0';
         }
     }
@@ -40,10 +39,10 @@ class Board
     public function moveCpu()
     {
         $posRand = rand(0, 8);
+
         if ($this->tiles[$posRand] == '0') {
             $this->tiles[$posRand] = '2';
-        }
-        else{
+        } else {
             $this->moveCpu();
         }
     }
