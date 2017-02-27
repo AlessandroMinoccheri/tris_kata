@@ -9,7 +9,7 @@ class CellTest extends TestCase
 {
     public function testAcceptOnlyOneToNinePosition()
     {
-        $randomPosition = rand(1, 9);
+        $randomPosition = rand(0, 8);
         $cell = new Cell();
         $cell->setPosition($randomPosition);
 
@@ -17,7 +17,7 @@ class CellTest extends TestCase
     }
 
     /** @expectedException \RuntimeException
-    @expectedExceptionMessage Negative Value aren't accepted
+    @expectedExceptionMessage Position out of range
     */
     public function testNotAcceptNegativePosition()
     {

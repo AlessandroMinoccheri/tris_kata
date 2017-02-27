@@ -10,7 +10,7 @@ class Cell {
     public function setPosition(int $position)
     {
         if($position < 0 || $position >= 9){
-            throw new \RuntimeException('Negative Value aren\'t accepted');
+            throw new \RuntimeException('Position out of range');
         }
 
         $this->position = $position;
@@ -24,7 +24,7 @@ class Cell {
     public function setStatus(int $status)
     {
         if($status < 0 || $status > 2){
-            throw new \RuntimeException('Negative Value aren\'t accepted');
+            throw new \RuntimeException('Value out of range');
         }
 
         $this->status = $status;

@@ -61,20 +61,23 @@ class Board
         return false;
     }
 
+    private function checkCellCombination(int $positionA, int $positionB, int $positionC)
+    {
+        if (($this->checkEqualsCell($positionA, $positionB, $positionC) == true)){
+            $this->winner = $this->tiles[$positionA];
+            return true;
+        }
+
+        return false;
+    }
+
     private function checkHorizontal() :bool
     {
-        if (($this->checkEqualsCell(0, 1, 2) == true)){
-            $this->winner = $this->tiles[0];
-            return true;
-        }
-
-        if (($this->checkEqualsCell(3, 4, 5) == true)){
-            $this->winner = $this->tiles[3];
-            return true;
-        }
-
-        if (($this->checkEqualsCell(6, 7, 8) == true)){
-            $this->winner = $this->tiles[6];
+        if (
+            $this->checkCellCombination(0, 1, 2) ||
+            $this->checkCellCombination(3, 4, 5) ||
+            $this->checkCellCombination(6, 7, 8)
+        ) {
             return true;
         }
 
@@ -83,18 +86,11 @@ class Board
 
     private function checkVertical() :bool
     {
-        if (($this->checkEqualsCell(0, 3, 6) == true)){
-            $this->winner = $this->tiles[0];
-            return true;
-        }
-
-        if (($this->checkEqualsCell(1, 4, 7) == true)){
-            $this->winner = $this->tiles[1];
-            return true;
-        }
-
-        if (($this->checkEqualsCell(2, 5, 8) == true)){
-            $this->winner = $this->tiles[2];
+        if (
+            $this->checkCellCombination(0, 3, 6) ||
+            $this->checkCellCombination(1, 4, 7) ||
+            $this->checkCellCombination(2, 5, 8)
+        ) {
             return true;
         }
 
