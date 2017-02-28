@@ -78,4 +78,34 @@ class BoardServiceTest extends WebTestCase
 
         $this->assertTrue($board->isGameFinished());
     }
+
+    public function testGetSatusGameEndOblique()
+    {
+        $this->requestMock = $this
+            ->getMockBuilder('Symfony\Component\HttpFoundation\Request')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->requestMock->request = $this
+            ->getMockBuilder('Symfony\Component\HttpFoundation\ParameterBag')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->requestMock->request->expects($this->at(0))
+            ->method('get')
+            ->will($this->returnValue('1'));
+
+        $this->requestMock->request->expects($this->at(4))
+            ->method('get')
+            ->will($this->returnValue('1'));
+
+        $this->requestMock->request->expects($this->at(8))
+            ->method('get')
+            ->will($this->returnValue('1'));
+
+        $board = new Board();
+        $board->setValue($this->requestMock);
+
+        $this->assertTrue($board->isGameFinished());
+    }
 }

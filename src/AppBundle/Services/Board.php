@@ -96,9 +96,21 @@ class Board
         return false;
     }
 
+    private function checkOblique() :bool
+    {
+        if (
+            $this->checkCellCombination(0, 4, 8) ||
+            $this->checkCellCombination(2, 4, 6)
+        ) {
+            return true;
+        }
+
+        return false;
+    }
+
     public function isGameFinished() : bool
     {
-        if ($this->checkHorizontal() || $this->checkVertical()) {
+        if ($this->checkHorizontal() || $this->checkVertical() || $this->checkOblique()) {
             return true;
         }
 
