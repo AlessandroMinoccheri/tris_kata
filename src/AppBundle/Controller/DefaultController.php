@@ -18,7 +18,7 @@ class DefaultController extends Controller
         $board->setValue($request);
         $gameFinished = $board->isGameFinished();
 
-        if (($request->isMethod('POST')) && ($statusGame != true)) {
+        if (($request->isMethod('POST')) && ($gameFinished != true)) {
             $board->moveCpu();
         }
 
