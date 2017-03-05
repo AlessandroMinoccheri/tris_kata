@@ -20,7 +20,7 @@ class BoardServiceTest extends WebTestCase
             ->getMock();
 
         $board = new Board();
-        $board->setValue($this->requestMock);
+        $board->setValueFromRequest($this->requestMock);
 
         $this->assertFalse($board->isGameFinished());
     }
@@ -44,7 +44,7 @@ class BoardServiceTest extends WebTestCase
         }
 
         $board = new Board();
-        $board->setValue($this->requestMock);
+        $board->setValueFromRequest($this->requestMock);
 
         $this->assertTrue($board->isGameFinished());
     }
@@ -74,7 +74,7 @@ class BoardServiceTest extends WebTestCase
             ->will($this->returnValue('1'));
 
         $board = new Board();
-        $board->setValue($this->requestMock);
+        $board->setValueFromRequest($this->requestMock);
 
         $this->assertTrue($board->isGameFinished());
     }
@@ -104,7 +104,7 @@ class BoardServiceTest extends WebTestCase
             ->will($this->returnValue('1'));
 
         $board = new Board();
-        $board->setValue($this->requestMock);
+        $board->setValueFromRequest($this->requestMock);
 
         $this->assertTrue($board->isGameFinished());
     }

@@ -6,6 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Services\Board;
+use AppBundle\Services\Cpu;
 
 class DefaultController extends Controller
 {
@@ -25,13 +26,15 @@ class DefaultController extends Controller
         if (!$request->request->get('level')) {
             return $this->redirectToRoute('homepage');
         }
-        
-        $board = $this->get('app.board');
-        $board->setValue($request);
+
+        $board = new Board();
+        $board->setValueFromRequest($request);
         $gameFinished = $board->isGameFinished();
 
         if (($request->isMethod('POST')) && ($gameFinished != true) && (!$request->request->get('startGame'))) {
-            $board->moveCpu();
+            $board->setValueFromRequest($request);
+            $cpu = Cpu::createCpuWithBoard($board);
+            $cpu->moveCpu();
         }
 
         $winner = $board->getWinner();

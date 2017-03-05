@@ -15,7 +15,7 @@ class Board
         $this->winner = '';
     }
 
-    public function setValue(Request $request)
+    public function setValueFromRequest(Request $request)
     {
         for ($i = 0; $i < 9; $i++) {
             $this->setCell($i, $request->request->get('cell_' . $i));
@@ -31,20 +31,14 @@ class Board
         }
     }
 
+    public function getCellValue(int $position) : string
+    {
+        return $this->tiles[$position];
+    }
+
     public function getArrayResult() : array
     {
         return $this->tiles;
-    }
-
-    public function moveCpu()
-    {
-        $posRand = rand(0, 8);
-
-        if ($this->tiles[$posRand] == '0') {
-            $this->tiles[$posRand] = '2';
-        } else {
-            $this->moveCpu();
-        }
     }
 
     private function checkEqualsCell(int $positionA, int $positionB, int $positionC) :bool
