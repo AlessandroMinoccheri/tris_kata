@@ -33,7 +33,7 @@ class DefaultController extends Controller
 
         if (($request->isMethod('POST')) && ($gameFinished != true) && (!$request->request->get('startGame'))) {
             $board->setValueFromRequest($request);
-            $cpu = Cpu::createCpuWithBoard($board);
+            $cpu = new Cpu($board);
             $cpu->moveCpu();
         }
 
