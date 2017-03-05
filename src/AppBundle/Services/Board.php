@@ -70,7 +70,7 @@ class Board
         return false;
     }
 
-    private function checkHorizontal() :bool
+    private function checkHorizontalTris() :bool
     {
         if (
             $this->checkCellCombination(0, 1, 2) ||
@@ -83,7 +83,7 @@ class Board
         return false;
     }
 
-    private function checkVertical() :bool
+    private function checkVerticalTris() :bool
     {
         if (
             $this->checkCellCombination(0, 3, 6) ||
@@ -96,7 +96,7 @@ class Board
         return false;
     }
 
-    private function checkOblique() :bool
+    private function checkObliqueTris() :bool
     {
         if (
             $this->checkCellCombination(0, 4, 8) ||
@@ -110,7 +110,7 @@ class Board
 
     public function isGameFinished() : bool
     {
-        if ($this->checkHorizontal() || $this->checkVertical() || $this->checkOblique()) {
+        if ($this->checkHorizontalTris() || $this->checkVerticalTris() || $this->checkObliqueTris()) {
             return true;
         }
 

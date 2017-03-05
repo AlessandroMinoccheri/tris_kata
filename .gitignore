@@ -4,6 +4,8 @@
 !app/cache/.gitkeep
 !app/logs/.gitkeep
 
+.DS_Store
+
 # Email spool folder
 /app/spool/*
 
