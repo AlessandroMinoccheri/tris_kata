@@ -3,44 +3,19 @@
 {% block body %}
     <div id="wrapper">
         <div id="container">
-            {% if gameFinished == true %}
+            <form method="POST" action="/game">
                 <p>
-                    GAME OVER
+                    Computer level?
                 </p>
-            {% else %}
-                <p>
-                    IT'S YOUR TURN
-                </p>
-            {% endif %}
+                <select name="level">
+                    <option value="easy">Easy</option>
+                    <option value="difficult">Difficult</option>
+                </select>
 
-            {% if winner != "" %}
-                <p>
-                    The winner is: {{winner}}
-                </p>
-            {% endif %}
-
-            <form method="POST">
-                {% for i in 0..8 %}
-                    <div class="cell color-{{ board[i] }}">
-                        <input type="hidden" name="cell_{{ i }}" class="cell-value" value="{{ board[i] }}"  >
-                    </div>
-                {% endfor %}
-                <div class="clear"></div>
+                <div style="margin-top: 50px;">
+                    <input type="submit" name="startGame" value="START GAME">
+                </div>
             </form>
         </div>
     </div>
-
-    {% if gameFinished != true %}
-        <script>
-        $(document).ready(function(){
-            $('.cell').click(function(){
-                var value = $(this).find('.cell-value').val();
-                if (value == '0'){
-                    $(this).find('.cell-value').val('1');
-                    $(this).closest('form').submit();
-                }
-            });
-        });
-        </script>
-    {% endif %}
 {% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            {% if gameFinished == true %}
+                <p>
+                    GAME OVER
+                </p>
+            {% else %}
+                <p>
+                    IT'S YOUR TURN, PC LEVEL: {{ level }}
+                </p>
+            {% endif %}
+
+            {% if winner != "" %}
+                <p>
+                    The winner is: {{winner}}
+                </p>
+            {% endif %}
+
+            <form method="POST">
+                <input type="hidden" name="level" value="{{level}}" />
+                {% for i in 0..8 %}
+                    <div class="cell color-{{ board[i] }}">
+                        <input type="hidden" name="cell_{{ i }}" class="cell-value" value="{{ board[i] }}" />
+                    </div>
+                {% endfor %}
+                <div class="clear"></div>
+            </form>
+        </div>
+    </div>
+
+    {% if gameFinished != true %}
+        <script>
+        $(document).ready(function(){
+            $('.cell').click(function(){
+                var value = $(this).find('.cell-value').val();
+                if (value == '0'){
+                    $(this).find('.cell-value').val('1');
+                    $(this).closest('form').submit();
+                }
+            });
+        });
+        </script>
+    {% endif %}
+{% endblock %}

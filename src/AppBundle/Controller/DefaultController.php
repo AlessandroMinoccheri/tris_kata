@@ -14,11 +14,23 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
+        return $this->render('default/index.html.twig');
+    }
+
+    /**
+     * @Route("/game", name="game")
+     */
+    public function gameAction(Request $request)
+    {
+        if (!$request->request->get('level')) {
+            return $this->redirectToRoute('homepage');
+        }
+        
         $board = $this->get('app.board');
         $board->setValue($request);
         $gameFinished = $board->isGameFinished();
 
-        if (($request->isMethod('POST')) && ($gameFinished != true)) {
+        if (($request->isMethod('POST')) && ($gameFinished != true) && (!$request->request->get('startGame'))) {
             $board->moveCpu();
         }
 
@@ -27,10 +39,11 @@ class DefaultController extends Controller
 
         var_dump($result);
 
-        return $this->render('default/index.html.twig', [
+        return $this->render('default/game.html.twig', [
             'board' => $result,
             'gameFinished' => $gameFinished,
             'winner' => $winner,
+            'level' => $request->request->get('level'),
         ]);
     }
 }
