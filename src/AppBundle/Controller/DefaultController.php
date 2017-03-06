@@ -27,13 +27,14 @@ class DefaultController extends Controller
             return $this->redirectToRoute('homepage');
         }
 
-        $board = new Board();
+        $board = $this->get('app.board');
         $board->setValueFromRequest($request);
         $gameFinished = $board->isGameFinished();
 
         if (($request->isMethod('POST')) && ($gameFinished != true) && (!$request->request->get('startGame'))) {
             $board->setValueFromRequest($request);
-            $cpu = new Cpu($board);
+            $cpu = $this->get('app.cpu');
+            $cpu->setBoard($board);
             $cpu->moveCpu();
         }
 

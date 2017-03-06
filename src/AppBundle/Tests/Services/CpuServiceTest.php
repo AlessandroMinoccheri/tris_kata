@@ -11,6 +11,7 @@ class CpuServiceTest extends WebTestCase
     public function testCreateCpuWithBoard()
     {
         $board = new Board();
-        $cpu = new Cpu($board);
+        $cpu = new Cpu();
+        $cpu->setBoard($board);
     }
 }

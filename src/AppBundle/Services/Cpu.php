@@ -9,7 +9,12 @@ class Cpu
 {
     protected $board;
 
-    public function __construct(Board $board)
+    public function __construct()
+    {
+
+    }
+
+    public function setBoard(Board $board)
     {
         $this->board = $board;
     }
@@ -19,7 +24,7 @@ class Cpu
         $posRand = rand(0, 8);
 
         if ($this->board->getCellValue($posRand) == '0') {
-            $board->setCell($posRand, '2');
+            $this->board->setCell($posRand, '2');
         } else {
             $this->moveCpu();
         }

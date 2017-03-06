@@ -1,4 +1,6 @@
 services:
     app.board:
         class:     AppBundle\Services\Board
+    app.cpu:
+        class:     AppBundle\Services\Cpu
         #arguments: ['@app.clienthttp', '@logger']
