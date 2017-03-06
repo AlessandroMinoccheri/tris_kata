@@ -12,6 +12,8 @@ class CpuServiceTest extends WebTestCase
     {
         $board = new Board();
         $cpu = new Cpu();
+        $cpu->setLevel('easy');
         $cpu->setBoard($board);
+        $cpu->moveCpu();
     }
 }

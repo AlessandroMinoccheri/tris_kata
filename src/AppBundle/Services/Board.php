@@ -31,7 +31,7 @@ class Board
         }
     }
 
-    public function getCellValue(int $position) : string
+    public function getCellValue(int $position) 
     {
         return $this->tiles[$position];
     }
