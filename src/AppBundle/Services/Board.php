@@ -31,7 +31,7 @@ class Board
         }
     }
 
-    public function getCellValue(int $position) 
+    public function getCellValue(int $position)
     {
         return $this->tiles[$position];
     }
@@ -39,6 +39,18 @@ class Board
     public function getArrayResult() : array
     {
         return $this->tiles;
+    }
+
+    public function getHumansPositionInArray() : array
+    {
+        $posHuman = [];
+        for ($i = 0; $i <= 8; $i++) {
+            if ($this->getCellValue($i) == '1') {
+                array_push($posHuman, $i);
+            }
+        }
+
+        return $posHuman;
     }
 
     private function checkEqualsCell(int $positionA, int $positionB, int $positionC) :bool
@@ -114,5 +126,76 @@ class Board
     public function getWinner() : string
     {
         return  $this->winner;
+    }
+
+    public function checkPartialPositionFromPositionAndValue (
+        int $position,
+        $value
+    ) : bool {
+        $possibleCombinations = $this->getAllPossibleCombinationFromPosition(
+            $position
+        );
+
+        foreach ($possibleCombinations as $combination) {
+            if ($this->atLeastTwoEqualsPosition($combination, $value)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private function getAllPossibleCombinationFromPosition($position) : array
+    {
+        $possibleCombinations = [];
+
+        switch ($position) {
+            case '0':   array_push($possibleCombinations, [0, 1, 2] );
+                        array_push($possibleCombinations, [0, 3, 6] );
+                        array_push($possibleCombinations, [0, 4, 8] );
+                        break;
+            case '1':   array_push($possibleCombinations, [0, 1, 2] );
+                        array_push($possibleCombinations, [1, 4, 7] );
+                        break;
+            case '2':   array_push($possibleCombinations, [0, 1, 2] );
+                        array_push($possibleCombinations, [2, 5, 8] );
+                        array_push($possibleCombinations, [2, 4, 6] );
+                        break;
+            case '3':   array_push($possibleCombinations, [3, 4, 5] );
+                        array_push($possibleCombinations, [0, 3, 6] );
+                        break;
+            case '4':   array_push($possibleCombinations, [3, 4, 5] );
+                        array_push($possibleCombinations, [1, 4, 7] );
+                        array_push($possibleCombinations, [0, 4, 8] );
+                        array_push($possibleCombinations, [2, 4, 6] );
+                        break;
+            case '5':   array_push($possibleCombinations, [3, 4, 5] );
+                        array_push($possibleCombinations, [2, 5, 8] );
+                        break;
+            case '6':   array_push($possibleCombinations, [6, 7, 8] );
+                        array_push($possibleCombinations, [0, 3, 8] );
+                        array_push($possibleCombinations, [2, 4, 6] );
+                        break;
+            case '7':   array_push($possibleCombinations, [6, 7, 8] );
+                        array_push($possibleCombinations, [1, 4, 7] );
+                        break;
+            case '8':   array_push($possibleCombinations, [6, 7, 8] );
+                        array_push($possibleCombinations, [2, 5, 8] );
+                        array_push($possibleCombinations, [0, 4, 8] );
+                        break;
+
+
+        }
+
+        return $possibleCombinations;
+    }
+
+    private function atLeastTwoEqualsPosition (
+        array $combination,
+        $value
+    ) : bool {
+        return $combination[0] &&
+        ($combination[1] || $combination[2]) ||
+        ($combination[1] && $combination[2]);
     }
 }

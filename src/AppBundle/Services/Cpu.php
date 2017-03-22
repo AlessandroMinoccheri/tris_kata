@@ -15,6 +15,11 @@ class Cpu
 
     }
 
+    public function getLevel()
+    {
+        return $this->level;
+    }
+
     public function setLevel(string $level)
     {
         $this->level = $level;
@@ -27,8 +32,10 @@ class Cpu
 
     public function moveCpu()
     {
-        if ($this->level == 'easy') {
+        if ($this->getLevel() == 'easy') {
             $this->moveRandom();
+        } else {
+            $this->calculateNextMove();
         }
     }
 
@@ -42,6 +49,18 @@ class Cpu
             $this->board->setCell($posRand, '2');
         } else {
             $this->moveRandom();
+        }
+    }
+
+    private function calculateNextMove()
+    {
+        $posHuman = $this->board->getHumansPositionInArray();
+
+        foreach ($posHuman as $position) {
+            $this->board->checkPartialPositionFromPositionAndValue(
+                $position,
+                '1'
+            );
         }
     }
 }

@@ -31,7 +31,10 @@ class DefaultController extends Controller
         $board->setValueFromRequest($request);
         $gameFinished = $board->isGameFinished();
 
-        if (($request->isMethod('POST')) && ($gameFinished != true) && (!$request->request->get('startGame'))) {
+        if (($request->isMethod('POST')) &&
+            ($gameFinished != true) &&
+            (!$request->request->get('startGame'))
+        ) {
             $board->setValueFromRequest($request);
             $cpu = $this->get('app.cpu');
             $cpu->setLevel($request->request->get('level'));
