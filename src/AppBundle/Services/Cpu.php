@@ -57,10 +57,14 @@ class Cpu
         $posHuman = $this->board->getHumansPositionInArray();
 
         foreach ($posHuman as $position) {
-            $this->board->checkPartialPositionFromPositionAndValue(
+            if ($this->board->existPartialPositionFromPositionAndValue(
                 $position,
                 '1'
-            );
+            )) {
+                //return $this->getPositionPartialTris();
+            }
         }
+
+        return $this->moveRandom();
     }
 }

@@ -128,7 +128,7 @@ class Board
         return  $this->winner;
     }
 
-    public function checkPartialPositionFromPositionAndValue (
+    public function existPartialPositionFromPositionAndValue (
         int $position,
         $value
     ) : bool {
@@ -183,8 +183,6 @@ class Board
                         array_push($possibleCombinations, [2, 5, 8] );
                         array_push($possibleCombinations, [0, 4, 8] );
                         break;
-
-
         }
 
         return $possibleCombinations;
