@@ -24,35 +24,37 @@ class PossibleCombinations
                 [0, 1, 2],
                 [2, 5, 8],
                 [2, 4, 6]
+            ],[
+                [3, 4, 5],
+                [0, 3, 6]
+            ],
+            [
+                [3, 4, 5],
+                [1, 4, 7],
+                [0, 4, 8],
+                [2, 4, 6]
+            ],
+            [
+                [3, 4, 5],
+                [2, 5, 8]
+            ],
+            [
+                [6, 7, 8],
+                [0, 3, 8],
+                [2, 4, 6]
+            ],
+            [
+                [6, 7, 8],
+                [1, 4, 7]
+            ],
+            [
+                [6, 7, 8],
+                [2, 5, 8],
+                [0, 4, 8]
             ]
         ];
 
-        switch ($position) {
-            case '3':   array_push($this->combinations, [3, 4, 5] );
-                        array_push($this->combinations, [0, 3, 6] );
-                        break;
-            case '4':   array_push($this->combinations, [3, 4, 5] );
-                        array_push($this->combinations, [1, 4, 7] );
-                        array_push($this->combinations, [0, 4, 8] );
-                        array_push($this->combinations, [2, 4, 6] );
-                        break;
-            case '5':   array_push($this->combinations, [3, 4, 5] );
-                        array_push($this->combinations, [2, 5, 8] );
-                        break;
-            case '6':   array_push($this->combinations, [6, 7, 8] );
-                        array_push($this->combinations, [0, 3, 8] );
-                        array_push($this->combinations, [2, 4, 6] );
-                        break;
-            case '7':   array_push($this->combinations, [6, 7, 8] );
-                        array_push($this->combinations, [1, 4, 7] );
-                        break;
-            case '8':   array_push($this->combinations, [6, 7, 8] );
-                        array_push($this->combinations, [2, 5, 8] );
-                        array_push($this->combinations, [0, 4, 8] );
-                        break;
-            default:    $this->combinations = $possibleCombinations[$position];
-                        break;
-        }
+        $this->combinations = $possibleCombinations[$position];
     }
 
     public static function fromPosition(

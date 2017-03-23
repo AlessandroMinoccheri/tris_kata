@@ -4,11 +4,16 @@ namespace AppBundle\Services;
 
 class Checker
 {
+    public function __construct()
+    {
+
+    }
+
     public function checkIfCellEquals(
         int $positionA,
         int $positionB,
         int $positionC,
-        $tiles
+        array $tiles
     ) :bool {
         if (
             $tiles[$positionA] == $tiles[$positionB] &&

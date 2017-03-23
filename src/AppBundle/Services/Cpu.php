@@ -4,9 +4,14 @@ namespace AppBundle\Services;
 
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Services\Board;
+use AppBundle\Services\MoveCalculator;
 
 class Cpu
 {
+    const EMPTY_CELL = '0';
+    const PLAYER_CELL = '1';
+    const CPU_CELL = '2';
+
     protected $board;
     protected $level;
 
@@ -32,39 +37,12 @@ class Cpu
 
     public function moveCpu()
     {
+        $moveCalculator = new MoveCalculator($this->board);
+
         if ($this->getLevel() == 'easy') {
-            $this->moveRandom();
+            $moveCalculator->moveRandom();
         } else {
-            $this->calculateNextMove();
+            $moveCalculator->calculateNextMove();
         }
-    }
-
-    private function moveRandom()
-    {
-        $posRand = rand(0, 8);
-
-        if (
-            ($this->board->getCellValue($posRand) == '0') ||
-            ($this->board->getCellValue($posRand) == null)) {
-            $this->board->setCell($posRand, '2');
-        } else {
-            $this->moveRandom();
-        }
-    }
-
-    private function calculateNextMove()
-    {
-        $posHuman = $this->board->getHumansPositionInArray();
-
-        foreach ($posHuman as $position) {
-            if ($this->board->existPartialPositionFromPositionAndValue(
-                $position,
-                '1'
-            )) {
-                //return $this->getPositionPartialTris();
-            }
-        }
-
-        return $this->moveRandom();
     }
 }

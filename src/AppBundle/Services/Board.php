@@ -8,6 +8,10 @@ use AppBundle\Objects\PossibleCombinations;
 
 class Board
 {
+    const EMPTY_CELL = '0';
+    const PLAYER_CELL = '1';
+    const CPU_CELL = '2';
+
     protected $tiles;
     protected $winner;
     private $checker;
@@ -30,13 +34,23 @@ class Board
         if (null != $value) {
             $this->tiles[$position] = $value;
         } else {
-            $this->tiles[$position] = '0';
+            $this->tiles[$position] = self::EMPTY_CELL;
         }
     }
 
     public function getCellValue(int $position)
     {
         return $this->tiles[$position];
+    }
+
+    public function isCellEmpty($position) : bool
+    {
+        if ($this->getCellValue($position) == self::EMPTY_CELL ||
+            $this->getCellValue($position) == null) {
+            return true;
+        }
+
+        return false;
     }
 
     public function getArrayResult() : array
@@ -48,7 +62,7 @@ class Board
     {
         $posHuman = [];
         for ($i = 0; $i <= 8; $i++) {
-            if ($this->getCellValue($i) == '1') {
+            if ($this->getCellValue($i) == self::PLAYER_CELL) {
                 array_push($posHuman, $i);
             }
         }
