@@ -6,22 +6,28 @@ class PossibleCombinations
 {
     private $combinations;
 
-    public function __construct()
+    public function __construct($position)
     {
         $this->combinations = [];
 
+        $possibleCombinations = [
+            [
+                [0, 1, 2],
+                [0, 3, 6],
+                [0, 4, 8]
+            ],
+            [
+                [0, 1, 2],
+                [1, 4, 7]
+            ],
+            [
+                [0, 1, 2],
+                [2, 5, 8],
+                [2, 4, 6]
+            ]
+        ];
+
         switch ($position) {
-            case '0':   array_push($this->combinations, [0, 1, 2] );
-                        array_push($this->combinations, [0, 3, 6] );
-                        array_push($this->combinations, [0, 4, 8] );
-                        break;
-            case '1':   array_push($this->combinations, [0, 1, 2] );
-                        array_push($this->combinations, [1, 4, 7] );
-                        break;
-            case '2':   array_push($this->combinations, [0, 1, 2] );
-                        array_push($this->combinations, [2, 5, 8] );
-                        array_push($this->combinations, [2, 4, 6] );
-                        break;
             case '3':   array_push($this->combinations, [3, 4, 5] );
                         array_push($this->combinations, [0, 3, 6] );
                         break;
@@ -43,6 +49,8 @@ class PossibleCombinations
             case '8':   array_push($this->combinations, [6, 7, 8] );
                         array_push($this->combinations, [2, 5, 8] );
                         array_push($this->combinations, [0, 4, 8] );
+                        break;
+            default:    $this->combinations = $possibleCombinations[$position];
                         break;
         }
     }
