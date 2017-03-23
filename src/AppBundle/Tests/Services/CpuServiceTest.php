@@ -8,9 +8,17 @@ use AppBundle\Services\Cpu;
 
 class CpuServiceTest extends WebTestCase
 {
+    public function setUp()
+    {
+        $this->checkerMock = $this
+            ->getMockBuilder('AppBundle\Services\Checker')
+            ->disableOriginalConstructor()
+            ->getMock();
+    }
+
     public function testCreateCpuWithBoard()
     {
-        $board = new Board();
+        $board = new Board($this->checkerMock);
         $cpu = new Cpu();
         $cpu->setLevel('easy');
         $cpu->setBoard($board);

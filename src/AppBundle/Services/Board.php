@@ -4,15 +4,18 @@ namespace AppBundle\Services;
 
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Objects\Cell;
+use AppBundle\Objects\PossibleCombinations;
 
 class Board
 {
     protected $tiles;
     protected $winner;
+    private $checker;
 
-    public function __construct()
+    public function __construct(Checker $checker)
     {
         $this->winner = '';
+        $this->checker = $checker;
     }
 
     public function setValueFromRequest(Request $request)
@@ -53,25 +56,19 @@ class Board
         return $posHuman;
     }
 
-    private function checkIfCellEquals(
+    private function checkCellCombination(
         int $positionA,
         int $positionB,
         int $positionC
-    ) :bool {
-        if (
-            $this->tiles[$positionA] == $this->tiles[$positionB] &&
-            $this->tiles[$positionA] == $this->tiles[$positionC] &&
-            $this->tiles[$positionA] != '0'
-        ) {
-            return true;
-        }
+    ) {
+        $isCellsEqual = $this->checker->checkIfCellEquals(
+            $positionA,
+            $positionB,
+            $positionC,
+            $this->tiles
+        );
 
-        return false;
-    }
-
-    private function checkCellCombination(int $positionA, int $positionB, int $positionC)
-    {
-        if (($this->checkIfCellEquals($positionA, $positionB, $positionC) == true)){
+        if (($isCellsEqual == true)){
             $this->winner = $this->tiles[$positionA];
             return true;
         }
@@ -119,7 +116,10 @@ class Board
 
     public function isGameFinished() : bool
     {
-        if ($this->checkHorizontalTris() || $this->checkVerticalTris() || $this->checkObliqueTris()) {
+        if ($this->checkHorizontalTris() ||
+            $this->checkVerticalTris() ||
+            $this->checkObliqueTris()
+        ) {
             return true;
         }
 
@@ -135,60 +135,17 @@ class Board
         int $position,
         $value
     ) : bool {
-        $possibleCombinations = $this->getAllPossibleCombinationFromPosition(
+        $possibleCombinations = PossibleCombinations::fromPosition(
             $position
         );
 
-        foreach ($possibleCombinations as $combination) {
+        foreach ($possibleCombinations->getCombinations() as $combination) {
             if ($this->atLeastTwoEqualsPosition($combination, $value)) {
                 return true;
             }
         }
 
         return false;
-    }
-
-    private function getAllPossibleCombinationFromPosition($position) : array
-    {
-        $possibleCombinations = [];
-
-        switch ($position) {
-            case '0':   array_push($possibleCombinations, [0, 1, 2] );
-                        array_push($possibleCombinations, [0, 3, 6] );
-                        array_push($possibleCombinations, [0, 4, 8] );
-                        break;
-            case '1':   array_push($possibleCombinations, [0, 1, 2] );
-                        array_push($possibleCombinations, [1, 4, 7] );
-                        break;
-            case '2':   array_push($possibleCombinations, [0, 1, 2] );
-                        array_push($possibleCombinations, [2, 5, 8] );
-                        array_push($possibleCombinations, [2, 4, 6] );
-                        break;
-            case '3':   array_push($possibleCombinations, [3, 4, 5] );
-                        array_push($possibleCombinations, [0, 3, 6] );
-                        break;
-            case '4':   array_push($possibleCombinations, [3, 4, 5] );
-                        array_push($possibleCombinations, [1, 4, 7] );
-                        array_push($possibleCombinations, [0, 4, 8] );
-                        array_push($possibleCombinations, [2, 4, 6] );
-                        break;
-            case '5':   array_push($possibleCombinations, [3, 4, 5] );
-                        array_push($possibleCombinations, [2, 5, 8] );
-                        break;
-            case '6':   array_push($possibleCombinations, [6, 7, 8] );
-                        array_push($possibleCombinations, [0, 3, 8] );
-                        array_push($possibleCombinations, [2, 4, 6] );
-                        break;
-            case '7':   array_push($possibleCombinations, [6, 7, 8] );
-                        array_push($possibleCombinations, [1, 4, 7] );
-                        break;
-            case '8':   array_push($possibleCombinations, [6, 7, 8] );
-                        array_push($possibleCombinations, [2, 5, 8] );
-                        array_push($possibleCombinations, [0, 4, 8] );
-                        break;
-        }
-
-        return $possibleCombinations;
     }
 
     private function atLeastTwoEqualsPosition (

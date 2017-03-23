@@ -7,6 +7,14 @@ use AppBundle\Services\Board;
 
 class BoardServiceTest extends WebTestCase
 {
+    public function setUp()
+    {
+        $this->checkerMock = $this
+            ->getMockBuilder('AppBundle\Services\Checker')
+            ->disableOriginalConstructor()
+            ->getMock();
+    }
+
     public function testGetSatusGameNotEnd()
     {
         $this->requestMock = $this
@@ -19,7 +27,11 @@ class BoardServiceTest extends WebTestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $board = new Board();
+        $this->checkerMock->expects($this->any())
+            ->method('checkIfCellEquals')
+            ->will($this->returnValue(false));
+
+        $board = new Board($this->checkerMock);
         $board->setValueFromRequest($this->requestMock);
 
         $this->assertFalse($board->isGameFinished());
@@ -43,7 +55,11 @@ class BoardServiceTest extends WebTestCase
                 ->will($this->returnValue('1'));
         }
 
-        $board = new Board();
+        $this->checkerMock->expects($this->any())
+            ->method('checkIfCellEquals')
+            ->will($this->returnValue(true));
+
+        $board = new Board($this->checkerMock);
         $board->setValueFromRequest($this->requestMock);
 
         $this->assertTrue($board->isGameFinished());
@@ -73,7 +89,11 @@ class BoardServiceTest extends WebTestCase
             ->method('get')
             ->will($this->returnValue('1'));
 
-        $board = new Board();
+        $this->checkerMock->expects($this->any())
+            ->method('checkIfCellEquals')
+            ->will($this->returnValue(true));
+
+        $board = new Board($this->checkerMock);
         $board->setValueFromRequest($this->requestMock);
 
         $this->assertTrue($board->isGameFinished());
@@ -103,7 +123,11 @@ class BoardServiceTest extends WebTestCase
             ->method('get')
             ->will($this->returnValue('1'));
 
-        $board = new Board();
+        $this->checkerMock->expects($this->any())
+            ->method('checkIfCellEquals')
+            ->will($this->returnValue(true));
+
+        $board = new Board($this->checkerMock);
         $board->setValueFromRequest($this->requestMock);
 
         $this->assertTrue($board->isGameFinished());
