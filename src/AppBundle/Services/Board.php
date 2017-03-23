@@ -53,8 +53,11 @@ class Board
         return $posHuman;
     }
 
-    private function checkEqualsCell(int $positionA, int $positionB, int $positionC) :bool
-    {
+    private function checkIfCellEquals(
+        int $positionA,
+        int $positionB,
+        int $positionC
+    ) :bool {
         if (
             $this->tiles[$positionA] == $this->tiles[$positionB] &&
             $this->tiles[$positionA] == $this->tiles[$positionC] &&
@@ -68,7 +71,7 @@ class Board
 
     private function checkCellCombination(int $positionA, int $positionB, int $positionC)
     {
-        if (($this->checkEqualsCell($positionA, $positionB, $positionC) == true)){
+        if (($this->checkIfCellEquals($positionA, $positionB, $positionC) == true)){
             $this->winner = $this->tiles[$positionA];
             return true;
         }
