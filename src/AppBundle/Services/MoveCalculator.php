@@ -31,7 +31,7 @@ class MoveCalculator
         $posHuman = $this->board->getHumansPositionInArray();
 
         foreach ($posHuman as $position) {
-            if ($this->board->existPartialPositionFromPositionAndValue(
+            if ($this->board->existPartialTris(
                 $position,
                 '1'
             )) {
