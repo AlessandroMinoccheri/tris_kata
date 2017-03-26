@@ -6,7 +6,7 @@ class PossibleCombinations
 {
     private $combinations;
 
-    public function __construct($position)
+    private function __construct($position)
     {
         $this->combinations = [];
 
@@ -63,7 +63,7 @@ class PossibleCombinations
         return new self($position);
     }
 
-    public function getCombinations()
+    public function getCombinations() : array
     {
         return $this->combinations;
     }

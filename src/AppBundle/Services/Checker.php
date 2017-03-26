@@ -32,8 +32,9 @@ class Checker
         array $combination,
         $value
     ) : bool {
-        return $combination[0] &&
-        ($combination[1] || $combination[2]) ||
-        ($combination[1] && $combination[2]);
+        return
+            (($combination[0] == $combination[1]) && ($combination[0] == $value)) ||
+            (($combination[1] == $combination[2]) && ($combination[1] == $value)) ||
+            (($combination[0] == $combination[2]) && ($combination[0] == $value));
     }
 }

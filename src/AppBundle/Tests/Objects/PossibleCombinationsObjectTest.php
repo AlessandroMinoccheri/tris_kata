@@ -10,7 +10,11 @@ class PossibleCombinationsObjectTest extends TestCase
     public function testGetPossibleCombinations()
     {
         $randomPosition = rand(0, 8);
-        $possibleCombinations = new PossibleCombinations($randomPosition);
+        $possibleCombinations = PossibleCombinations::fromPosition(
+            $randomPosition
+        );
+
         $this->assertGreaterThan(0, count($possibleCombinations));
+        $this->assertGreaterThan(0, count($possibleCombinations->getCombinations()));
     }
 }
