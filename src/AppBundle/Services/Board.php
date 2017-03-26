@@ -82,9 +82,9 @@ class Board
 
     public function isGameFinished() : bool
     {
-        if ($this->checker->checkHorizontalTris() ||
-            $this->checker->checkVerticalTris() ||
-            $this->checker->checkObliqueTris()
+        if ($this->checkHorizontalTris() ||
+            $this->checkVerticalTris() ||
+            $this->checkObliqueTris()
         ) {
             return true;
         }
@@ -108,10 +108,58 @@ class Board
         foreach ($possibleCombinations->getCombinations() as $combination) {
             if (
                 $this->checker->atLeastTwoEqualsPosition($combination, $value) &&
-                $this->checker->atLeastOneEmptyCell($combination)
+                $this->atLeastOneEmptyCell($combination)
             ) {
                 return true;
             }
+        }
+
+        return false;
+    }
+
+    public function isCellEmpty($position) : bool
+    {
+        if ($this->getCellValue($position) == self::EMPTY_CELL ||
+            $this->getCellValue($position) == null) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function checkHorizontalTris() :bool
+    {
+        if (
+            $this->checkCellCombination(0, 1, 2) ||
+            $this->checkCellCombination(3, 4, 5) ||
+            $this->checkCellCombination(6, 7, 8)
+        ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function checkVerticalTris() :bool
+    {
+        if (
+            $this->checkCellCombination(0, 3, 6) ||
+            $this->checkCellCombination(1, 4, 7) ||
+            $this->checkCellCombination(2, 5, 8)
+        ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function checkObliqueTris() :bool
+    {
+        if (
+            $this->checkCellCombination(0, 4, 8) ||
+            $this->checkCellCombination(2, 4, 6)
+        ) {
+            return true;
         }
 
         return false;

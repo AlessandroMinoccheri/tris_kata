@@ -1,6 +1,9 @@
 services:
+    app.checker:
+        class:     AppBundle\Services\Checker
     app.board:
         class:     AppBundle\Services\Board
+        arguments: ['@app.checker']
     app.cpu:
         class:     AppBundle\Services\Cpu
         #arguments: ['@app.clienthttp', '@logger']
