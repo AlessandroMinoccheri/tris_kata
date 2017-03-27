@@ -15,12 +15,28 @@ class DefaultControllerTest extends WebTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 
-    public function testNotSetLevel()
+    public function testEnterIntoGame()
     {
         $client = static::createClient();
 
         $crawler = $client->request('GET', '/game');
 
-        $this->assertEquals(302, $client->getResponse()->getStatusCode());
+        $response = $client->request(
+            'POST',
+            '/game', [
+                'level' => 'easy',
+                'cell_0' => '0',
+                'cell_1' => '0',
+                'cell_2' => '0',
+                'cell_3' => '0',
+                'cell_4' => '0',
+                'cell_5' => '0',
+                'cell_6' => '0',
+                'cell_7' => '0',
+                'cell_8' => '0',
+            ]
+        );
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 }
