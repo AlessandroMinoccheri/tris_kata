@@ -29,15 +29,6 @@ class MoveCalculator
 
     public function calculateNextMove()
     {
-        $nextMoveDefense = $this->moveToPartialTris(
-            self::PLAYER_CELL,
-            self::CPU_CELL
-        );
-
-        if ($nextMoveDefense) {
-            return $nextMoveDefense;
-        }
-
         $nextMoveOffense = $this->moveToPartialTris(
             self::CPU_CELL,
             self::PLAYER_CELL
@@ -45,6 +36,15 @@ class MoveCalculator
 
         if ($nextMoveOffense) {
             return $nextMoveOffense;
+        }
+
+        $nextMoveDefense = $this->moveToPartialTris(
+            self::PLAYER_CELL,
+            self::CPU_CELL
+        );
+
+        if ($nextMoveDefense) {
+            return $nextMoveDefense;
         }
 
         return $this->moveRandom();
