@@ -35,14 +35,14 @@ class Cpu
         $this->board = $board;
     }
 
-    public function moveCpu()
+    public function moveCpu() : int
     {
         $moveCalculator = new MoveCalculator($this->board);
 
         if ($this->getLevel() == 'easy') {
-            $moveCalculator->moveRandom();
+            return $moveCalculator->moveRandom();
         } else {
-            $moveCalculator->calculateNextMove();
+            return $moveCalculator->calculateNextMove();
         }
     }
 }

@@ -21,6 +21,7 @@ class MoveCalculator
 
         if ($this->board->isCellEmpty($posRand)) {
             $this->board->setCell($posRand, self::CPU_CELL);
+            return $posRand;
         } else {
             $this->moveRandom();
         }
@@ -28,17 +29,42 @@ class MoveCalculator
 
     public function calculateNextMove()
     {
-        $posHuman = $this->board->getHumansPositionInArray();
+        $nextMoveDefense = $this->moveToPartialTris(
+            self::PLAYER_CELL,
+            self::CPU_CELL
+        );
 
-        foreach ($posHuman as $position) {
-            if ($this->board->existPartialTris(
-                $position,
-                '1'
-            )) {
-                //return $this->getPositionPartialTris();
-            }
+        if ($nextMoveDefense) {
+            return $nextMoveDefense;
+        }
+
+        $nextMoveOffense = $this->moveToPartialTris(
+            self::CPU_CELL,
+            self::PLAYER_CELL
+        );
+
+        if ($nextMoveOffense) {
+            return $nextMoveOffense;
         }
 
         return $this->moveRandom();
+    }
+
+    private function moveToPartialTris(int $valueGet, int $valueSet)
+    {
+        $positions = $this->board->getPositionInArrayByValue($valueGet);
+        foreach ($positions as $position) {
+            $possibleNextMove = $this->board->getPartialTrisPosition(
+                $position,
+                $valueGet
+            );
+
+            if ($possibleNextMove) {
+                $this->board->setCell($possibleNextMove, $valueSet);
+                return $possibleNextMove;
+            }
+        }
+
+        return false;
     }
 }

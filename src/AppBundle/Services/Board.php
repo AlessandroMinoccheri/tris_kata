@@ -48,16 +48,16 @@ class Board
         return $this->tiles;
     }
 
-    public function getHumansPositionInArray() : array
+    public function getPositionInArrayByValue(int $value) : array
     {
-        $posHuman = [];
+        $position = [];
         for ($i = 0; $i <= 8; $i++) {
-            if ($this->getCellValue($i) == self::PLAYER_CELL) {
-                array_push($posHuman, $i);
+            if ($this->getCellValue($i) == $value) {
+                array_push($position, $i);
             }
         }
 
-        return $posHuman;
+        return $position;
     }
 
     private function checkCellCombination(
@@ -97,24 +97,64 @@ class Board
         return  $this->winner;
     }
 
-    public function existPartialTris (
-        int $position,
+    private function atLeastTwoEqualsPosition (
+        array $combination,
         $value
     ) : bool {
+
+        $first = $this->getCellValue($combination[0]);
+        $second = $this->getCellValue($combination[1]);
+        $third = $this->getCellValue($combination[2]);
+
+        if (
+            (($first == $second) && ($first == $value)) ||
+            (($second == $third) && ($second == $value)) ||
+            (($first == $third) && ($first == $value))
+        ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function getPartialTrisPosition (
+        int $position,
+        int $value
+    ) {
         $possibleCombinations = PossibleCombinations::fromPosition(
             $position
         );
 
         foreach ($possibleCombinations->getCombinations() as $combination) {
             if (
-                $this->checker->atLeastTwoEqualsPosition($combination, $value) &&
+                $this->atLeastTwoEqualsPosition($combination, $value) &&
                 $this->atLeastOneEmptyCell($combination)
             ) {
+                return $this->getEmptyCellFromCombination($combination);
+            }
+        }
+
+        return false;
+    }
+
+    private function atLeastOneEmptyCell(array $combinations)
+    {
+        foreach ($combinations as $combination) {
+            if ($this->getCellValue($combination) == self::EMPTY_CELL) {
                 return true;
             }
         }
 
         return false;
+    }
+
+    public function getEmptyCellFromCombination(array $combination)
+    {
+        for ($i = 0; $i < count($combination); $i++) {
+            if ($this->isCellEmpty($combination[$i])) {
+                return $combination[$i];
+            }
+        }
     }
 
     public function isCellEmpty($position) : bool
