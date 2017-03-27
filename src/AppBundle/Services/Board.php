@@ -97,7 +97,7 @@ class Board
         return  $this->winner;
     }
 
-    private function atLeastTwoEqualsPosition (
+    public function atLeastTwoEqualsPosition (
         array $combination,
         $value
     ) : bool {
