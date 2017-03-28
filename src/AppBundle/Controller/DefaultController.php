@@ -42,6 +42,7 @@ class DefaultController extends Controller
             $cpu->moveCpu();
         }
 
+        $gameFinished = $board->isGameFinished();
         $winner = $board->getWinner();
         $result = $board->getArrayResult();
 

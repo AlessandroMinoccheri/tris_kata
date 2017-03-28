@@ -19,9 +19,9 @@ class MoveCalculator
     {
         $emptyCell = $this->board->getAllEmptyCell();
         $posRand = rand(0, count($emptyCell));
-        $this->board->setCell($posRand, self::CPU_CELL);
+        $this->board->setCell($emptyCell[$posRand], self::CPU_CELL);
 
-        return $posRand;
+        return $emptyCell[$posRand];
     }
 
     public function calculateNextMove()
@@ -30,9 +30,6 @@ class MoveCalculator
             self::CPU_CELL,
             self::PLAYER_CELL
         );
-
-        echo 'Offense: ';
-        echo $nextMoveOffense;
 
         if ($nextMoveOffense) {
             $this->board->setCell($nextMoveOffense, self::CPU_CELL);
