@@ -31,7 +31,11 @@ class MoveCalculator
             self::PLAYER_CELL
         );
 
+        echo 'Offense: ';
+        echo $nextMoveOffense;
+
         if ($nextMoveOffense) {
+            $this->board->setCell($nextMoveOffense, self::CPU_CELL);
             return $nextMoveOffense;
         }
 
@@ -41,6 +45,7 @@ class MoveCalculator
         );
 
         if ($nextMoveDefense) {
+            $this->board->setCell($nextMoveDefense, self::CPU_CELL);
             return $nextMoveDefense;
         }
 
