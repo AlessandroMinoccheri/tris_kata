@@ -204,4 +204,17 @@ class Board
 
         return false;
     }
+
+    public function getAllEmptyCell() : array
+    {
+        $emptyCell = [];
+
+        for ($i = 0; $i <= 8; $i++) {
+            if ($this->isCellEmpty($i)) {
+                array_push($emptyCell, $i);
+            }
+        }
+
+        return $emptyCell;
+    }
 }

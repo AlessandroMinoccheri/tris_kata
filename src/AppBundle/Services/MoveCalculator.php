@@ -15,16 +15,13 @@ class MoveCalculator
         $this->board = $board;
     }
 
-    public function moveRandom()
+    public function moveRandom() : int
     {
-        $posRand = rand(0, 8);
+        $emptyCell = $this->board->getAllEmptyCell();
+        $posRand = rand(0, count($emptyCell));
+        $this->board->setCell($posRand, self::CPU_CELL);
 
-        if ($this->board->isCellEmpty($posRand)) {
-            $this->board->setCell($posRand, self::CPU_CELL);
-            return $posRand;
-        } else {
-            $this->moveRandom();
-        }
+        return $posRand;
     }
 
     public function calculateNextMove()
